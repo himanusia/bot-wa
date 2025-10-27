@@ -5,7 +5,8 @@ const silentMode = process.argv.includes('--silent')
 
 export async function handleMessage(sock: WASocket, msg: WAMessage) {
   try {
-    const from = msg.pushName;
+    const from = msg.key.remoteJid;
+    const fromName = msg.pushName || 'Unknown';
     const isFromMe = msg.key.fromMe
 
     const text = getMessageText(msg)
@@ -16,8 +17,8 @@ export async function handleMessage(sock: WASocket, msg: WAMessage) {
         }
         return
     }
-    
-    console.log(`Message from ${from}: ${text}`)
+
+    console.log(`${fromName}: ${text}`)
 
     if (isFromMe) return
 
