@@ -6,9 +6,9 @@ export async function prosesPesan(
   text: string,
   from: string
 ) {
-  if (text === 'halo') {
+  if (text === 'i love you') {
     await sock.readMessages([msg.key])
-    await sock.sendMessage(from, { text: 'hai' })
+    await sock.sendMessage(from, { text: 'i love you too 💖' })
     return
   }
 }
