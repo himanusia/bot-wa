@@ -1,22 +1,7 @@
-import { WASocket, WAMessage, AnyMessageContent } from '@whiskeysockets/baileys'
+import { WASocket, WAMessage } from '@whiskeysockets/baileys'
+import { processMessage } from './commands.js'
 
 const silentMode = process.argv.includes('--silent')
-
-/**
- * Process message and send response
- */
-async function processMessage(
-  sock: WASocket,
-  msg: WAMessage,
-  text: string,
-  from: string
-) {
-    if (text === "halo") {
-        await sock.readMessages([msg.key])
-        await sendMessage(sock, from, { text: 'Halo! Ada yang bisa saya bantu?' })
-    }
-}
-
 
 export async function handleMessage(sock: WASocket, msg: WAMessage) {
   try {
@@ -70,37 +55,4 @@ function getMessageText(msg: WAMessage): string | null {
   }
 
   return null
-}
-
-
-/**
- * Send message with typing indicator
- */
-async function sendMessage(
-  sock: WASocket,
-  jid: string,
-  content: AnyMessageContent,
-  isDelayed: boolean = false
-) {
-  try {
-    if (!isDelayed) {
-        await sock.sendMessage(jid, content)
-        return
-    }
-
-    await sock.presenceSubscribe(jid)
-    await sock.sendPresenceUpdate('composing', jid)
-    await delay(1000)
-    await sock.sendPresenceUpdate('paused', jid)
-    await sock.sendMessage(jid, content)
-  } catch (error) {
-    console.error('Error sending message:', error)
-  }
-}
-
-/**
- * Utility function to delay execution
- */
-function delay(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms))
 }
