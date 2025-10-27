@@ -1,5 +1,5 @@
 import { WASocket, WAMessage } from '@whiskeysockets/baileys'
-import { processMessage } from './commands.js'
+import { prosesPesan } from './pesan.js'
 
 const silentMode = process.argv.includes('--silent')
 
@@ -21,8 +21,8 @@ export async function handleMessage(sock: WASocket, msg: WAMessage) {
 
     if (isFromMe) return
 
-    // Handle different commands or messages
-    await processMessage(sock, msg, text, from!)
+    // Handle messages
+    await prosesPesan(sock, msg, text, from!)
   } catch (error) {
     console.error('Error handling message:', error)
   }

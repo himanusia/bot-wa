@@ -1,6 +1,6 @@
 import { WASocket, WAMessage } from '@whiskeysockets/baileys'
 
-export async function processMessage(
+export async function prosesPesan(
   sock: WASocket,
   msg: WAMessage,
   text: string,
