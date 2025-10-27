@@ -5,24 +5,21 @@ const silentMode = process.argv.includes('--silent')
 
 export async function handleMessage(sock: WASocket, msg: WAMessage) {
   try {
-    const from = msg.key.remoteJid
+    const from = msg.pushName;
     const isFromMe = msg.key.fromMe
-
-    if (isFromMe) return
 
     const text = getMessageText(msg)
     
     if (!text) {
-      if (!silentMode) {
-        console.log('No text content in message')
-      }
-      return
+        if (!silentMode) {
+            console.log('No text content in message')
+        }
+        return
     }
+    
+    console.log(`Message from ${from}: ${text}`)
 
-    if (!silentMode) {
-      console.log(`Message from ${from}: ${text}`)
-    }
-
+    if (isFromMe) return
 
     // Handle different commands or messages
     await processMessage(sock, msg, text, from!)
