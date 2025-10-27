@@ -7,7 +7,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx index.ts",
+    "dev": "tsx index.ts --use-pairing-code --silent",
+    "dev:qr": "tsx index.ts",
     "dev:pairing": "tsx index.ts --use-pairing-code",
     "dev:silent": "tsx index.ts --silent",
     "dev:pairing:silent": "tsx index.ts --use-pairing-code --silent",

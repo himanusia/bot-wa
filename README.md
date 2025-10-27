@@ -23,22 +23,22 @@ npm install
 
 ## 💻 Cara Menggunakan
 
-### Menggunakan QR Code (Default)
+### Default (Pairing Code + Silent Mode)
 ```bash
 npm run dev
 ```
+Masukkan nomor WhatsApp Anda dan gunakan pairing code yang diberikan. Bot berjalan dalam silent mode (minimal log).
+
+### Menggunakan QR Code
+```bash
+npm run dev:qr
+```
 Scan QR code yang muncul di terminal menggunakan WhatsApp di smartphone Anda.
 
-### Menggunakan Pairing Code
+### Opsi Lainnya
 ```bash
-npm run dev:pairing
-```
-Masukkan nomor WhatsApp Anda dan gunakan pairing code yang diberikan.
-
-### Mode Silent (Tanpa Log Verbose)
-```bash
-npm run dev:silent
-npm run dev:pairing:silent
+npm run dev:pairing          # Pairing code dengan log verbose
+npm run dev:silent           # QR code + silent mode
 ```
 
 ## 📁 Struktur File
@@ -66,10 +66,11 @@ bot-wa/
 ## 📝 Development
 
 Script yang tersedia:
-- `npm run dev` - Jalankan bot dengan QR code
-- `npm run dev:pairing` - Jalankan bot dengan pairing code
-- `npm run dev:silent` - Jalankan bot tanpa log verbose
-- `npm run dev:pairing:silent` - Pairing code + silent mode
+- `npm run dev` - Pairing code + silent mode
+- `npm run dev:qr` - QR code dengan log verbose
+- `npm run dev:pairing` - Pairing code dengan log verbose
+- `npm run dev:silent` - QR code + silent mode
+- `npm run dev:pairing:silent` - Pairing code + silent mode (sama dengan `npm run dev`)
 - `npm run build` - Build project TypeScript
 - `npm start` - Jalankan bot (production)
 
