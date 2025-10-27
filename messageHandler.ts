@@ -18,9 +18,12 @@ export async function handleMessage(sock: WASocket, msg: WAMessage) {
         return
     }
 
-    const displaySender = isFromMe ? 'Gw' : fromName
-    const displayRecipient = isFromMe ? (from ? from.split('@')[0] : 'Gw') : 'Gw'
-    console.log(`${displaySender} ke ${displayRecipient}: ${text}`)
+    // const displaySender = isFromMe ? 'Gw' : `${fromName} (${from && from.split('@')[0]})`
+    // const displayRecipient = isFromMe ? (from ? from.split('@')[0] : 'Gw') : 'Gw'
+    // console.log(`${displaySender} ke ${displayRecipient}: ${text}`)
+    
+    // buat tutorial
+    console.log(`${isFromMe ? '--- gw' : fromName}: ${text}`)
 
     if (isFromMe) return
 
