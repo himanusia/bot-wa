@@ -161,37 +161,32 @@ const startSock = async() => {
           }
         }
 
-        if (upsert.type === 'notify') {
-          for (const msg of upsert.messages) {
-            // Store message for later retrieval
-            messageStore.saveMessage(msg)
+        for (const msg of upsert.messages) {
+        // Store message for later retrieval
+        messageStore.saveMessage(msg)
+        
+        // Handle special commands
+        if (msg.message?.conversation || msg.message?.extendedTextMessage?.text) {
+            const text = msg.message?.conversation || msg.message?.extendedTextMessage?.text
             
-            // Handle special commands
-            if (msg.message?.conversation || msg.message?.extendedTextMessage?.text) {
-              const text = msg.message?.conversation || msg.message?.extendedTextMessage?.text
-              
-              if (text == "requestPlaceholder" && !upsert.requestId) {
-                const messageId = await sock.requestPlaceholderResend(msg.key)
-                if (!silentMode) {
-                  console.log('requested placeholder resync, id=', messageId)
-                }
-                continue
-              }
-
-              if (text == "onDemandHistSync") {
-                const messageId = await sock.fetchMessageHistory(50, msg.key, msg.messageTimestamp!)
-                if (!silentMode) {
-                  console.log('requested on-demand sync, id=', messageId)
-                }
-                continue
-              }
+            if (text == "requestPlaceholder" && !upsert.requestId) {
+            const messageId = await sock.requestPlaceholderResend(msg.key)
+            if (!silentMode) {
+                console.log('requested placeholder resync, id=', messageId)
+            }
+            continue
             }
 
-            // Use message handler for regular messages
-            if (!msg.key.fromMe && !isJidNewsletter(msg.key?.remoteJid!)) {
-              await handleMessage(sock, msg)
+            if (text == "onDemandHistSync") {
+            const messageId = await sock.fetchMessageHistory(50, msg.key, msg.messageTimestamp!)
+            if (!silentMode) {
+                console.log('requested on-demand sync, id=', messageId)
             }
-          }
+            continue
+            }
+        }
+
+        await handleMessage(sock, msg)
         }
       }
 
